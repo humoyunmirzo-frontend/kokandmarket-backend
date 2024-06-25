@@ -16,9 +16,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         parentId: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true
         }
     })
-
+    Category.hasMany(Category, { as: 'children', foreignKey: 'parentId' });
+    Category.belongsTo(Category, { as: 'parent', foreignKey: 'parentId' });
     return Category
 }
+

@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         color: {
-            type: Sequelize.STRING,
+            type: Sequelize.JSON,
             allowNull: true
         },
         stock: {
@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         size: {
-            type: Sequelize.STRING,
+            type: Sequelize.JSON,
             allowNull: true
         },
         mainImage: {
@@ -27,7 +27,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         images: {
-            type: Sequelize.BLOB,
+            type: Sequelize.JSON,
             allowNull: false
         },
         price: {
@@ -47,6 +47,13 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
     })
-
+    ProductVariant.associate = (models) => {
+        ProductVariant.belongsToMany(models.Product, {
+            through: 'ProductId',
+            foreignKey: 'productId',
+            otherKey: 'productId',
+            as: 'products'
+        });
+    };
     return ProductVariant
 }
